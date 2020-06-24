@@ -48,13 +48,11 @@ public class Test01 {
                 "insert into myResult select latence,id,message,hostname,appprogramname,appsystem from myTable;";
 
 //        System.out.println(a.replaceAll("\n", "").replaceAll("\t", ""));
-        String str = "";
-        String[] split = str.split(",");
-        if (!"".equals("") || true) {
-            System.out.println("success");
+        try {
+            int b = 1 / 0;
+        }catch (Exception e) {
+            System.out.println(e.toString());
         }
-        boolean flag = "".equals("");
-
-        System.out.println(flag);
+        System.out.println("end");
     }
 }

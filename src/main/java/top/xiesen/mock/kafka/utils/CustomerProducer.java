@@ -98,14 +98,42 @@ public class CustomerProducer {
         logSize = StringUtil.getLong(properties.getProperty("log.size", "5000").trim(), 1);
     }
 
+    /**
+     * 发送日志数据
+     *
+     * @param logTypeName  日志集
+     * @param timestamp    时间戳
+     * @param source       日志来源
+     * @param offset       offset
+     * @param dimensions   维度
+     * @param measures     度量值
+     * @param normalFields 普通列
+     */
     public void sendLog(String logTypeName, String timestamp, String source, String offset,
-                        Map<String, String> dimensions, Map<String, Double> metrics, Map<String, String> normalFields) throws ExecutionException, InterruptedException {
+                        Map<String, String> dimensions, Map<String, Double> measures, Map<String, String> normalFields) {
         try {
             byte[] bytes = AvroSerializerFactory.getLogAvorSerializer().serializingLog(logTypeName, timestamp, source,
-                    offset, dimensions, metrics, normalFields);
+                    offset, dimensions, measures, normalFields);
             producer.send(new ProducerRecord<String, byte[]>(topics, null, bytes));
         } catch (Exception e) {
             log.error("sendLog-插入Kafka失败", e);
+        }
+    }
+
+    /**
+     * 发送指标数据
+     *
+     * @param metricSetName 指标集
+     * @param timestamp     时间戳
+     * @param dimensions    维度
+     * @param metrics       指标
+     */
+    public void sendMetric(String metricSetName, String timestamp, Map<String, String> dimensions, Map<String, Double> metrics) {
+        try {
+            byte[] bytes = AvroSerializerFactory.getMetricAvorSerializer().serializingMetric(metricSetName, timestamp, dimensions, metrics);
+            producer.send(new ProducerRecord<String, byte[]>(topics, null, bytes));
+        } catch (Exception e) {
+            log.error("sendMetric-插入Kafka失败", e);
         }
     }
 

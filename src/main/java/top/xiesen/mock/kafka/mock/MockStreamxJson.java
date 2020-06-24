@@ -16,8 +16,8 @@ import java.util.Properties;
  * @time: 2020/1/17 0017 10:57
  */
 public class MockStreamxJson {
-    private static String topic = "streamx_json";
-    private static String brokerAddr = "zorkdata-95:9092";
+    private static String topic = "streamx_avro_log_zw";
+    private static String brokerAddr = "kafka-1:19092,kafka-2:19092,kafka-3:19092";
     private static ProducerRecord<String, String> producerRecord = null;
     private static KafkaProducer<String, String> producer = null;
 
@@ -55,9 +55,10 @@ public class MockStreamxJson {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         for (int i = 0; i <= 100; i++) {
             send(topic);
+            Thread.sleep(2000);
         }
     }
 }

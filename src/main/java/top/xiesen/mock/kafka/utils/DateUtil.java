@@ -45,6 +45,15 @@ public class DateUtil {
         return String.valueOf(format1.format(new Date()));
     }
 
+    /**
+     * 获取当前时间戳
+     *
+     * @return @{link String}
+     */
+    public static String getCurrentTimestamp() {
+        return String.valueOf(System.currentTimeMillis());
+    }
+
     public static String getUTCTimeStr(long interval) {
         long currentTimeMillis = System.currentTimeMillis();
         return format.format(new Date(currentTimeMillis + interval)).toString();
