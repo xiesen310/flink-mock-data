@@ -10,6 +10,7 @@ import java.util.Date;
 public class DateUtil {
 
     private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS+08:00");
+    private static DateFormat format1 = new SimpleDateFormat("yyyyMMdd");
 
     private static ThreadLocal<SimpleDateFormat> sdf = new ThreadLocal<SimpleDateFormat>() {
         @Override
@@ -40,6 +41,10 @@ public class DateUtil {
         return format.format(new Date()).toString();
     }
 
+    public static String getDate() {
+        return String.valueOf(format1.format(new Date()));
+    }
+
     public static String getUTCTimeStr(long interval) {
         long currentTimeMillis = System.currentTimeMillis();
         return format.format(new Date(currentTimeMillis + interval)).toString();
@@ -47,8 +52,9 @@ public class DateUtil {
 
     public static void main(String[] args) {
 //        System.out.println(getUTCTimeStr());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String today = sdf.format(new Date());
-        System.out.println(today);
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        String today = sdf.format(new Date());
+//        System.out.println(today);
+        System.out.println(getDate());
     }
 }

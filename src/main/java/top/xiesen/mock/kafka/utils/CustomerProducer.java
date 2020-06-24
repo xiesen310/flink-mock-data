@@ -101,14 +101,9 @@ public class CustomerProducer {
     public void sendLog(String logTypeName, String timestamp, String source, String offset,
                         Map<String, String> dimensions, Map<String, Double> metrics, Map<String, String> normalFields) throws ExecutionException, InterruptedException {
         try {
-            long l1 = System.currentTimeMillis();
             byte[] bytes = AvroSerializerFactory.getLogAvorSerializer().serializingLog(logTypeName, timestamp, source,
                     offset, dimensions, metrics, normalFields);
-            long l2 = System.currentTimeMillis();
-//            System.out.println("数据序列化需要的时间: " + (l2 - l1) + "ms");
             producer.send(new ProducerRecord<String, byte[]>(topics, null, bytes));
-            long l3 = System.currentTimeMillis();
-//            System.out.println("执行 producer.send 方法所需要的时间: " + (l3 - l2) + "ms");
         } catch (Exception e) {
             log.error("sendLog-插入Kafka失败", e);
         }

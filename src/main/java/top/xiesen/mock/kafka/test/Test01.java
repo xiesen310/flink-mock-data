@@ -1,5 +1,7 @@
 package top.xiesen.mock.kafka.test;
 
+import top.xiesen.mock.kafka.mock.MockStreamxLogAvro;
+
 /**
  * @Description
  * @className top.xiesen.mock.kafka.test.Test01
@@ -45,6 +47,14 @@ public class Test01 {
                 "\n" +
                 "insert into myResult select latence,id,message,hostname,appprogramname,appsystem from myTable;";
 
-        System.out.println(a.replaceAll("\n", "").replaceAll("\t", ""));
+//        System.out.println(a.replaceAll("\n", "").replaceAll("\t", ""));
+        String str = "";
+        String[] split = str.split(",");
+        if (!"".equals("") || true) {
+            System.out.println("success");
+        }
+        boolean flag = "".equals("");
+
+        System.out.println(flag);
     }
 }
